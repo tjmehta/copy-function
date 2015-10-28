@@ -1,4 +1,4 @@
-# copy-function
+# copy-function [![Build Status](https://travis-ci.org/tjmehta/copy-function.svg?branch=master)](https://travis-ci.org
 copy a function by wrapping it w/ a closure
 
 ## Installation
