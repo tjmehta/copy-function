@@ -7,7 +7,7 @@ npm install copy-function
 ```
 
 ## Usage
-'''js
+```js
 var copyFunc = require('copy-function')
 function add (a, b) {
   return a + b
