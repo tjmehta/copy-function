@@ -1,4 +1,4 @@
-# copy-function [![Build Status](https://travis-ci.org/tjmehta/copy-function.svg?branch=master)](https://travis-ci.org
+# copy-function ![Build Status](https://travis-ci.org/tjmehta/copy-function.svg?branch=master) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](http://standardjs.com/)
 copy a function by wrapping it w/ a closure
 
 ## Installation
