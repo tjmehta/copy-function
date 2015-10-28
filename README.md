@@ -2,7 +2,7 @@
 copy a function by wrapping it w/ a closure
 
 ## Installation
-```js
+```bash
 npm install copy-function
 ```
 
