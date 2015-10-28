@@ -22,7 +22,9 @@ describe('copyFunction', function () {
     expect(addCopy(1, 2))
       .to.equal(add(1, 2))
       .to.equal(1 + 2)
-    expect(addCopy.name).to.equal(add.name)
+    if (IS_GTE_NODE_4) {
+      expect(addCopy.name).to.equal(add.name)
+    }
     expect(addCopy.length).to.equal(add.length)
     done()
   })
@@ -32,7 +34,9 @@ describe('copyFunction', function () {
     expect(addCopy(1, 2))
       .to.equal(add(1, 2))
       .to.equal(1 + 2)
-    expect(addCopy.name).to.equal('addCopy')
+    if (IS_GTE_NODE_4) {
+      expect(addCopy.name).to.equal('addCopy')
+    }
     expect(addCopy.length).to.equal(add.length)
     done()
   })
@@ -128,7 +132,9 @@ describe('copyFunction', function () {
       function assertCopy (fnCopy, fn) {
         expect(fnCopy).to.not.equal(fn)
         expect(fnCopy()).to.equal(fn())
-        expect(fnCopy.name).to.equal(fn.name)
+        if (IS_GTE_NODE_4) {
+          expect(fnCopy.name).to.equal(fn.name)
+        }
         if (fn.length) {
           expect(fnCopy.length).to.equal(fn.length)
         }
