@@ -1,0 +1,37 @@
+{
+  "name": "copy-function",
+  "version": "1.0.0",
+  "description": "copy a function by wrapping it with a closure",
+  "main": "index.js",
+  "scripts": {
+    "test": "lab --assert code --threshold 100"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tjmehta/copy-function.git"
+  },
+  "keywords": [
+    "copy",
+    "clone",
+    "function",
+    "no",
+    "eval",
+    "closure",
+    "bind",
+    "wrap"
+  ],
+  "author": "Tejesh Mehta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tjmehta/copy-function/issues"
+  },
+  "homepage": "https://github.com/tjmehta/copy-function",
+  "devDependencies": {
+    "code": "^1.5.0",
+    "lab": "^6.2.0",
+    "standard": "^5.3.1"
+  },
+  "dependencies": {
+    "101": "^1.2.0"
+  }
+}
