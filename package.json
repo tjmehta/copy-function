@@ -4,7 +4,7 @@
   "description": "copy a function by wrapping it with a closure",
   "main": "index.js",
   "scripts": {
-    "test": "lab --assert code --threshold 100"
+    "test": "lab --assert code -c"
   },
   "repository": {
     "type": "git",

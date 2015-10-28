@@ -9,6 +9,7 @@ var it = lab.it
 var afterEach = lab.afterEach
 var beforeEach = lab.beforeEach
 var expect = Code.expect
+var IS_GTE_NODE_4 = process.version.split('.')[0] === 'v4'
 
 function add (a, b) {
   return a + b
@@ -47,12 +48,14 @@ describe('copyFunction', function () {
   describe('compatibility', function () {
     var defineProperty = Object.defineProperty
     var fnWithoutLength = function () {}
-    Object.defineProperty(fnWithoutLength, 'length', {
-      value: null,
-      writable: false,
-      enumerable: false,
-      configurable: true
-    })
+    if (IS_GTE_NODE_4) {
+      Object.defineProperty(fnWithoutLength, 'length', {
+        value: null,
+        writable: false,
+        enumerable: false,
+        configurable: true
+      })
+    }
 
     describe('no Object.defineProperty', function () {
       beforeEach(function (done) {
@@ -63,13 +66,16 @@ describe('copyFunction', function () {
         Object.defineProperty = defineProperty
         done()
       })
-
-      it('should copy a function w/ no length', function (done) {
-        var fn = fnWithoutLength
-        var fnCopy = copyFunc(fn)
-        assertCopy(fnCopy, fn)
-        done()
-      })
+      if (IS_GTE_NODE_4) {
+        // cannot redifine fn's length
+        // to test this w/out node 4+
+        it('should copy a function w/ no length', function (done) {
+          var fn = fnWithoutLength
+          var fnCopy = copyFunc(fn)
+          assertCopy(fnCopy, fn)
+          done()
+        })
+      }
       it('should copy a function of length 0', function (done) {
         var fn = function () { return 10 }
         var fnCopy = copyFunc(fn)
