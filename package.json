@@ -4,7 +4,9 @@
   "description": "copy a function by wrapping it with a closure",
   "main": "index.js",
   "scripts": {
-    "test": "lab --assert code -c"
+    "test": "npm run lint && lab -c --assert code test",
+    "lint": "standard",
+    "format": "standard --format"
   },
   "repository": {
     "type": "git",
