@@ -14,13 +14,14 @@ function copyFunc (fn, name) {
     throw new Error('`fn` must be a function')
   }
   var copy
+  var useLegacyCopy = useLegacy()
 
-  if (Object.defineProperty) {
-    // copy fn w/ length and possibly name
-    copy = _copyFunc(fn, name)
-  } else {
+  if (useLegacyCopy) {
     // pre-ES5 copy fn, possibly w/ length
     copy = _legacyCopyFunc(fn)
+  } else {
+    // copy fn w/ length and possibly name
+    copy = _copyFunc(fn, name)
   }
 
   return copy
@@ -116,4 +117,17 @@ function _legacyCopyFunc (fn) {
   }
 
   return copy
+}
+
+var testFn = function () {}
+function useLegacy () {
+  if (!Object.defineProperty) {
+    return true
+  }
+  if (!Object.getOwnPropertyDescriptor) {
+    return true
+  } else {
+    var lengthDescriptor = Object.getOwnPropertyDescriptor(testFn, 'length')
+    return lengthDescriptor.configurable === false
+  }
 }
