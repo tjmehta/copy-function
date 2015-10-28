@@ -50,6 +50,7 @@ describe('copyFunction', function () {
     })
   })
   describe('compatibility', function () {
+    var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor
     var defineProperty = Object.defineProperty
     var fnWithoutLength = function () {}
     if (IS_GTE_NODE_4) {
@@ -60,6 +61,27 @@ describe('copyFunction', function () {
         configurable: true
       })
     }
+
+    describe('no Object.getOwnPropertyDescriptor', function () {
+      beforeEach(function (done) {
+        delete Object.getOwnPropertyDescriptor
+        done()
+      })
+      afterEach(function (done) {
+        Object.getOwnPropertyDescriptor = getOwnPropertyDescriptor
+        done()
+      })
+
+      it('should use "legacy" copy', function (done) {
+        var fn = function () { return 10 }
+        var fnCopy = copyFunc(fn)
+        // different assertions, bc lab throws errors w/out getOwnPropDesc
+        expect(fnCopy !== fn).to.be.true()
+        expect(fnCopy() === fn()).to.be.true()
+        expect(fnCopy.length === fn.length).to.be.true()
+        done()
+      })
+    })
 
     describe('no Object.defineProperty', function () {
       beforeEach(function (done) {
@@ -128,17 +150,15 @@ describe('copyFunction', function () {
         assertCopy(fnCopy, fn)
         done()
       })
-
-      function assertCopy (fnCopy, fn) {
-        expect(fnCopy).to.not.equal(fn)
-        expect(fnCopy()).to.equal(fn())
-        if (IS_GTE_NODE_4) {
-          expect(fnCopy.name).to.equal(fn.name)
-        }
-        if (fn.length) {
-          expect(fnCopy.length).to.equal(fn.length)
-        }
-      }
     })
+
+    function assertCopy (fnCopy, fn) {
+      expect(fnCopy).to.not.equal(fn)
+      expect(fnCopy()).to.equal(fn())
+      expect(fnCopy.name).to.equal(fn.name)
+      if (fn.length) {
+        expect(fnCopy.length).to.equal(fn.length)
+      }
+    }
   })
 })
